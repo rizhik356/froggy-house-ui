@@ -8,15 +8,18 @@ import { loginFormValuesNormalize } from '../helpers/loginFormValuesNormalize.ts
 import postLoginData from '../api/postLoginData.ts'
 import { useState } from 'react'
 import { errorNotification } from '../../../shared/ui/Notifications'
+import { useDispatch } from 'react-redux'
+import { authActions } from '../model/store/authSlice.ts'
 
 const Login = () => {
   const [loading, setLoading] = useState<boolean>(false)
+  const dispatch = useDispatch()
 
   const handleSubmit = (values: LoginFormValues) => {
     setLoading(true)
     const normalizeValues = loginFormValuesNormalize(values)
     postLoginData(normalizeValues)
-      .then((data) => console.log(data))
+      .then((data) => dispatch(authActions.setTokens(data)))
       .catch((error) => errorNotification(error))
       .finally(() => setLoading(false))
   }
