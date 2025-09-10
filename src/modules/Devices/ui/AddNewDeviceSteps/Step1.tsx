@@ -1,0 +1,111 @@
+import { useEffect } from 'react'
+import { getRooms } from '../../../../app/api/getRooms.ts'
+import { getDevicesTypes } from '../../model/api/getDevicesTypes.ts'
+import { errorNotification } from '../../../../shared/ui/Notifications'
+import { useDispatch } from 'react-redux'
+import { addDeviceActions } from '../../model/slices/addDeviceSlice.ts'
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material'
+import { useFormik } from 'formik'
+import { loginSchema } from '../../../Auth/model/schemas/validationSchemas.ts'
+import { addNewDeviceStep1InitialValues } from '../../constants/initialValues.ts'
+import type { FormValues } from '../../model/types/AddNewDeviceTypes.ts'
+import { useAppSelector } from '../../../../app/hooks/storeHooks.ts'
+import styles from '../../scss/styles.module.scss'
+
+const Step1 = () => {
+  const dispatch = useDispatch()
+  const { rooms, devicesTypes } = useAppSelector(
+    (state) => state.addDevice.servicesData,
+  )
+
+  const handleSubmit = (values: FormValues) => {
+    console.log(values)
+  }
+
+  const form = useFormik({
+    initialValues: addNewDeviceStep1InitialValues,
+    validationSchema: loginSchema,
+    onSubmit: (values) => {
+      handleSubmit(values)
+    },
+  })
+
+  useEffect(() => {
+    Promise.all([getRooms(), getDevicesTypes()])
+      .then(([rooms, devicesTypes]) => {
+        dispatch(addDeviceActions.setServiceData({ rooms, devicesTypes }))
+      })
+      .catch((err) => errorNotification(err))
+  }, [])
+
+  return (
+    <>
+      <Box
+        component={'form'}
+        className={styles.form}
+        onSubmit={form.handleSubmit}
+      >
+        <FormControl fullWidth>
+          <InputLabel id={'roomId'}>Комната</InputLabel>
+          <Select
+            labelId={'roomId'}
+            name={'roomId'}
+            value={form.values.roomId}
+            onChange={form.handleChange}
+            label={'Комната'}
+            fullWidth
+          >
+            {rooms.map(({ value, label }) => {
+              return (
+                <MenuItem key={value} value={value}>
+                  {label}
+                </MenuItem>
+              )
+            })}
+          </Select>
+        </FormControl>
+
+        <FormControl fullWidth>
+          <InputLabel id={'deviceId'}>Устройство</InputLabel>
+          <Select
+            labelId={'deviceId'}
+            name={'deviceId'}
+            value={form.values.deviceId}
+            onChange={form.handleChange}
+            label={'Устройство'}
+            fullWidth
+          >
+            {devicesTypes.map(({ value, label }) => {
+              return (
+                <MenuItem key={value} value={value}>
+                  {label}
+                </MenuItem>
+              )
+            })}
+          </Select>
+        </FormControl>
+        <TextField
+          value={form.values.name}
+          onChange={form.handleChange}
+          name={'name'}
+          fullWidth
+          label={'Название'}
+          variant={'outlined'}
+        />
+        <Button size={'large'} type={'submit'} variant={'contained'}>
+          Далее
+        </Button>
+      </Box>
+    </>
+  )
+}
+
+export default Step1

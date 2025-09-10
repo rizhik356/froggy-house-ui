@@ -1,0 +1,11 @@
+.side_menu {
+  width: 300px;
+  border-right: 1px solid var(--border-color);
+  height: 100%;
+  .list_item {
+   :global(.MuiButtonBase-root) {
+     padding-left: 24px;
+     padding-right: 24px;
+   }
+  }
+}
