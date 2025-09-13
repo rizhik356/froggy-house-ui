@@ -13,18 +13,27 @@
 
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
     .card {
       .card_header {
-        :global(.MuiCardHeader-title) {
-          font-size: 1rem;
-          text-overflow: ellipsis;
+        overflow: hidden;
+        :global(.MuiCardHeader-content) {
+          overflow: hidden;
+          :global(.MuiCardHeader-title) {
+            font-size: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          :global(.MuiCardHeader-subheader) {
+            font-size: 0.875rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
-        :global(.MuiCardHeader-subheader) {
-          font-size: 0.875rem;
-          text-overflow: ellipsis;
-        }
+
       }
       .card_actions {
         justify-self: center;

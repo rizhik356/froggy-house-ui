@@ -12,9 +12,12 @@ import MenuIcon from '@mui/icons-material/Menu'
 import PersonIcon from '@mui/icons-material/Person'
 import { useNavigate } from 'react-router-dom'
 import { paths } from '../../../constants'
+import { useDispatch } from 'react-redux'
+import { headerActions } from '../model/slices/headerSlice.ts'
 
 const Header = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   return (
     <AppBar position={'sticky'}>
@@ -31,6 +34,7 @@ const Header = () => {
             edge="start"
             color="inherit"
             aria-label="open drawer"
+            onClick={() => dispatch(headerActions.setCollapsed())}
           >
             <MenuIcon />
           </IconButton>
