@@ -7,22 +7,24 @@ import { Header } from '../../../../modules/Header'
 import { Box } from '@mui/material'
 
 import styles from '../scss/styles.module.scss'
-import { useEffect } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { makeAxiosInstance } from '../../../../shared/utils/makeAxiosInstance.ts'
 
 const MainWrapper = () => {
   const token = useAppSelector((state) => state.auth.token)
+  const [loading, setLoading] = useState<boolean>(true)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (token) {
       makeAxiosInstance()
+      setLoading(false)
     }
   }, [token])
 
-  const layout = (
+  const layout = loading ? null : (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <Header />
-      <div style={{ display: 'flex', flex: 1 }}>
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
         <SideMenu />
         <Box className={styles.layout_container}>
           <Outlet />

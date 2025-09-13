@@ -1,10 +1,13 @@
 import { Dialog, Fab, Slide, Box } from '@mui/material'
 import styles from '../scss/styles.module.scss'
 import AddIcon from '@mui/icons-material/Add'
-import { useState } from 'react'
+import { useEffect } from 'react'
 import type { TransitionProps } from '@mui/material/transitions'
 import React from 'react'
 import AddNewDeviceHeader from './AddNewDeviceHeader.tsx'
+import { useDispatch } from 'react-redux'
+import { addDeviceActions } from '../model/slices/addDeviceSlice.ts'
+import { useAppSelector } from '../../../app/hooks/storeHooks.ts'
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -16,13 +19,20 @@ const Transition = React.forwardRef(function Transition(
 })
 
 const AddNewDeviceModal = () => {
-  const [open, setOpen] = useState<boolean>(false)
+  const dispatch = useDispatch()
+  const open = useAppSelector((state) => state.addDevice.modalOpened)
+
+  useEffect(() => {
+    if (!open) {
+      dispatch(addDeviceActions.resetAll())
+    }
+  }, [open])
 
   const handleFabClick = () => {
-    setOpen(true)
+    dispatch(addDeviceActions.setModalOpened())
   }
 
-  const handleClose = () => setOpen(false)
+  const handleClose = () => dispatch(addDeviceActions.setModalClosed())
 
   return (
     <>

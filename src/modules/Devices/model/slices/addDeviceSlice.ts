@@ -9,6 +9,20 @@ const addDeviceSlice = createSlice({
     setServiceData: (state, action: PayloadAction<ServicesData>) => {
       state.servicesData = action.payload
     },
+    setDeviceToken: (state, action: PayloadAction<string>) => {
+      state.deviceToken = action.payload
+      state.step += 1
+    },
+    setModalOpened: (state) => {
+      state.modalOpened = true
+    },
+    setModalClosed: (state) => {
+      state.modalOpened = false
+    },
+    setNextStep: (state) => {
+      state.step += 1
+    },
+    resetAll: () => addDeviceSLiceInitialValue,
   },
 })
 

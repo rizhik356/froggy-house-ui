@@ -11,23 +11,18 @@ import {
 import styles from '../scss/styles.module.scss'
 import CloseIcon from '@mui/icons-material/Close'
 import type { Props } from '../model/types/AddNewDeviceTypes.ts'
-import { useState } from 'react'
 import { addNewModalSteps } from '../constants/AddNewModalSteps.tsx'
-import Step1 from './AddNewDeviceSteps/Step1.tsx'
+import { useAppSelector } from '../../../app/hooks/storeHooks.ts'
 
 const AddNewDeviceHeader = ({ onClick }: Props) => {
-  const [activeStep, setActiveStep] = useState<number>(0)
+  const { step } = useAppSelector((state) => state.addDevice)
 
-  const isStepSkipped = (step: number) => {
-    return step < activeStep
-  }
-
-  const setNewActiveStep = (activeStep: number) => {
-    setActiveStep(activeStep)
+  const isStepSkipped = (newStep: number) => {
+    return newStep < step
   }
 
   return (
-    <Box>
+    <>
       <AppBar sx={{ position: 'relative' }}>
         <Toolbar className={styles.header}>
           <Typography variant={'h6'}>Добавление нового устройства</Typography>
@@ -40,15 +35,19 @@ const AddNewDeviceHeader = ({ onClick }: Props) => {
         <Stepper>
           {addNewModalSteps.map((_item, index) => {
             return (
-              <Step key={index} completed={isStepSkipped(index)}>
+              <Step
+                key={index}
+                completed={isStepSkipped(index)}
+                active={index === step}
+              >
                 <StepLabel>{''}</StepLabel>
               </Step>
             )
           })}
         </Stepper>
-        <Step1 />
+        {addNewModalSteps[step].component}
       </Box>
-    </Box>
+    </>
   )
 }
 

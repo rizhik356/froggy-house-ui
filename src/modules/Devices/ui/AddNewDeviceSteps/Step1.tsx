@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getRooms } from '../../../../app/api/getRooms.ts'
 import { getDevicesTypes } from '../../model/api/getDevicesTypes.ts'
 import { errorNotification } from '../../../../shared/ui/Notifications'
@@ -14,25 +14,33 @@ import {
   TextField,
 } from '@mui/material'
 import { useFormik } from 'formik'
-import { loginSchema } from '../../../Auth/model/schemas/validationSchemas.ts'
 import { addNewDeviceStep1InitialValues } from '../../constants/initialValues.ts'
 import type { FormValues } from '../../model/types/AddNewDeviceTypes.ts'
 import { useAppSelector } from '../../../../app/hooks/storeHooks.ts'
 import styles from '../../scss/styles.module.scss'
+import { postStep1Data } from '../../model/api/postStep1Data.ts'
 
 const Step1 = () => {
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState<boolean>(false)
   const { rooms, devicesTypes } = useAppSelector(
     (state) => state.addDevice.servicesData,
   )
 
   const handleSubmit = (values: FormValues) => {
-    console.log(values)
+    setLoading(true)
+    postStep1Data(values)
+      .then((data) => {
+        dispatch(addDeviceActions.setDeviceToken(data.token))
+      })
+      .catch((error) => {
+        errorNotification(error)
+      })
+      .finally(() => setLoading(false))
   }
 
   const form = useFormik({
     initialValues: addNewDeviceStep1InitialValues,
-    validationSchema: loginSchema,
     onSubmit: (values) => {
       handleSubmit(values)
     },
@@ -58,7 +66,7 @@ const Step1 = () => {
           <Select
             labelId={'roomId'}
             name={'roomId'}
-            value={form.values.roomId}
+            value={form.values.roomId || ''}
             onChange={form.handleChange}
             label={'Комната'}
             fullWidth
@@ -78,7 +86,7 @@ const Step1 = () => {
           <Select
             labelId={'deviceId'}
             name={'deviceId'}
-            value={form.values.deviceId}
+            value={form.values.deviceId || ''}
             onChange={form.handleChange}
             label={'Устройство'}
             fullWidth
@@ -100,7 +108,12 @@ const Step1 = () => {
           label={'Название'}
           variant={'outlined'}
         />
-        <Button size={'large'} type={'submit'} variant={'contained'}>
+        <Button
+          size={'large'}
+          type={'submit'}
+          variant={'contained'}
+          loading={loading}
+        >
           Далее
         </Button>
       </Box>

@@ -1,3 +1,5 @@
+import type { DeviceData } from './DevicesTypes.ts'
+
 export type Props = {
   onClick: () => void
 }
@@ -10,6 +12,14 @@ export type ServicesData = { rooms: ServiceData; devicesTypes: ServiceData }
 
 export type AddDeviceState = {
   servicesData: ServicesData
+  deviceToken: string
+  modalOpened: boolean
+  step: number
+}
+
+export type DevicesState = {
+  devicesUpdate: boolean
+  devices: Array<DeviceData>
 }
 
 export type FormValues = {

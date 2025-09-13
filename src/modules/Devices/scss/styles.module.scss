@@ -4,27 +4,103 @@
   right: 24px
 }
 
-.container {
-  .header {
-    display: flex;
-    justify-content: space-between;
-  }
-  .steps_container {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    width: 70%;
-    margin: 3rem auto;
+.main_container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  .main_container_inner {
 
-    .form {
-      min-width: 250px;
-      width: 50%;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 3rem
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    .card {
+      .card_header {
+        :global(.MuiCardHeader-title) {
+          font-size: 1rem;
+          text-overflow: ellipsis;
+        }
+        :global(.MuiCardHeader-subheader) {
+          font-size: 0.875rem;
+          text-overflow: ellipsis;
+        }
+      }
+      .card_actions {
+        justify-self: center;
+      }
+      &.disable {
+        background-color: #c8c8c8;
+        pointer-events: none;
+        cursor: not-allowed;
+      }
     }
   }
 }
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .header {
+      display: flex;
+      justify-content: space-between;
+    }
+    .steps_container {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      width: 70%;
+      margin: 3rem auto;
+      flex: 1;
+
+      .form {
+        min-width: 250px;
+        height: 100%;
+        width: 50%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 3rem
+      }
+
+      .step2 {
+        min-width: 250px;
+        height: 100%;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: auto;
+        gap: 5rem;
+        ol {
+          letter-spacing: 1px;
+          font-size: 16px;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          padding-inline-start: 0;
+          text-align: center;
+          list-style-position: inside;
+
+          li {
+            text-align: left;
+          }
+        }
+      }
+      .step3 {
+        height: 100%;
+        min-width: 250px;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: auto;
+        :global(.MuiSkeleton-wave) {
+          flex: 1;
+        }
+      }
+    }
+  }
 
 
