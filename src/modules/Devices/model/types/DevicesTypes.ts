@@ -37,7 +37,7 @@ export type DeviceData = DeviceDefaultParams & {
 
 export type NewHubData = FormValues & OutputData
 
-export type DeviceCardProps = DeviceData
+export type DeviceCardProps = DeviceData & { parentId?: number }
 
 export type DeviceModalProps = {
   onFinish: (outputs: HubDevice[]) => void

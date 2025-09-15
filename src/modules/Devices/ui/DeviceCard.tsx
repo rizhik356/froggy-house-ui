@@ -24,6 +24,7 @@ const DeviceCard = ({
   active,
   deviceType,
   id,
+  parentId,
 }: DeviceCardProps) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [deviceParams, setDeviceParams] = useState<Params>(params)
@@ -31,7 +32,12 @@ const DeviceCard = ({
 
   const handleClickBtn = () => {
     setLoading(true)
-    const newDeviceParams = { ...deviceParams, power: !deviceParams.power }
+    const newDeviceParams = {
+      ...deviceParams,
+      power: !deviceParams.power,
+      id,
+      parentId,
+    }
     postDeviceParams(newDeviceParams)
       .then((data) => {
         setDeviceParams(data.params)

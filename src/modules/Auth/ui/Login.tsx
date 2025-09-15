@@ -1,5 +1,12 @@
 import styles from '../scss/styles.module.scss'
-import { Typography, Box, TextField, Button } from '@mui/material'
+import {
+  Typography,
+  Box,
+  TextField,
+  Button,
+  IconButton,
+  InputAdornment,
+} from '@mui/material'
 import { useFormik } from 'formik'
 import { loginInitialValues } from '../constants/inititalValues.ts'
 import { loginSchema } from '../model/schemas/validationSchemas.ts'
@@ -10,9 +17,12 @@ import { useState } from 'react'
 import { errorNotification } from '../../../shared/ui/Notifications'
 import { useDispatch } from 'react-redux'
 import { authActions } from '../model/store/authSlice.ts'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 const Login = () => {
   const [loading, setLoading] = useState<boolean>(false)
+  const [showPassword, setShowPassword] = useState<boolean>(false)
   const dispatch = useDispatch()
 
   const handleSubmit = (values: LoginFormValues) => {
@@ -22,6 +32,10 @@ const Login = () => {
       .then((data) => dispatch(authActions.setTokens(data)))
       .catch((error) => errorNotification(error))
       .finally(() => setLoading(false))
+  }
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword)
   }
 
   const form = useFormik({
@@ -65,9 +79,27 @@ const Login = () => {
           onChange={form.handleChange}
           fullWidth
           label={'Пароль'}
+          type={showPassword ? 'text' : 'password'}
           error={form.touched.password && Boolean(form.errors.password)}
           helperText={form.touched.password && form.errors.password}
           onBlur={form.handleBlur}
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label={
+                      showPassword ? 'Скрыть пароль' : 'Показать пароль'
+                    }
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+          }}
         />
         <Button
           loading={loading}

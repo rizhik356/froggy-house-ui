@@ -7,7 +7,7 @@ import { Header } from '../../../../modules/Header'
 import { Box } from '@mui/material'
 
 import styles from '../scss/styles.module.scss'
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { makeAxiosInstance } from '../../../../shared/utils/makeAxiosInstance.ts'
 import { getRooms } from '../../../api/getRooms.ts'
 import { errorNotification } from '../../../../shared/ui/Notifications'
@@ -22,20 +22,19 @@ const MainWrapper = () => {
 
   const dispatch = useDispatch()
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (token) {
       makeAxiosInstance()
+      Promise.all([getRooms(), getDevicesTypes()])
+        .then(([rooms, devicesTypes]) => {
+          dispatch(serviceActions.setServiceData({ rooms, devicesTypes }))
+        })
+        .catch((err) => errorNotification(err))
+      setLoading(false)
     }
-    setLoading(true)
-    Promise.all([getRooms(), getDevicesTypes()])
-      .then(([rooms, devicesTypes]) => {
-        dispatch(serviceActions.setServiceData({ rooms, devicesTypes }))
-      })
-      .catch((err) => errorNotification(err))
-    setLoading(false)
   }, [])
 
-  const layout = loading ? null : (
+  const layout = !loading && (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <Header />
       <div
