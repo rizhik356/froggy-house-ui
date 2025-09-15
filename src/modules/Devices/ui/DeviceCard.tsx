@@ -13,6 +13,8 @@ import { useState } from 'react'
 import type { Params } from '../model/types/DevicesTypes.ts'
 import postDeviceParams from '../../Auth/api/postDeviceParams.ts'
 import { errorNotification } from '../../../shared/ui/Notifications'
+import { useDispatch } from 'react-redux'
+import { devicesActions } from '../model/slices/devicesSlice.ts'
 
 const DeviceCard = ({
   name,
@@ -20,11 +22,14 @@ const DeviceCard = ({
   roomName,
   params,
   active,
+  deviceType,
+  id,
 }: DeviceCardProps) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [deviceParams, setDeviceParams] = useState<Params>(params)
+  const dispatch = useDispatch()
 
-  const handleClick = () => {
+  const handleClickBtn = () => {
     setLoading(true)
     const newDeviceParams = { ...deviceParams, power: !deviceParams.power }
     postDeviceParams(newDeviceParams)
@@ -35,30 +40,39 @@ const DeviceCard = ({
       .finally(() => setLoading(false))
   }
 
+  const handleClick = () => {
+    if (deviceType === 'SWITCH_HUB') {
+      dispatch(devicesActions.setDeviceIdClicked(id))
+      dispatch(devicesActions.setDeviceModalOpened())
+    }
+  }
+
   return (
-    <Card className={`${styles.card} ${!active ? styles.disable : ''}`}>
-      <CardHeader
-        className={styles.card_header}
-        title={name}
-        subheader={roomName}
-      />
-      <CardMedia
-        component="img"
-        //        height="194"
-        image={makeStaticPath(image)}
-        alt={name}
-      />
-      <CardActions disableSpacing className={styles.card_actions}>
-        <IconButton
-          size={'large'}
-          color={deviceParams.power ? 'primary' : 'default'}
-          loading={loading}
-          onClick={handleClick}
-        >
-          <PowerSettingsNewIcon />
-        </IconButton>
-      </CardActions>
-    </Card>
+    <>
+      <Card
+        onClick={handleClick}
+        className={`${styles.card} ${!active ? styles.disable : ''}`}
+      >
+        <CardHeader
+          className={styles.card_header}
+          title={name}
+          subheader={roomName}
+        />
+        <CardMedia component="img" image={makeStaticPath(image)} alt={name} />
+        <CardActions disableSpacing className={styles.card_actions}>
+          {deviceType !== 'SWITCH_HUB' && (
+            <IconButton
+              size={'large'}
+              color={deviceParams.power ? 'primary' : 'default'}
+              loading={loading}
+              onClick={handleClickBtn}
+            >
+              <PowerSettingsNewIcon />
+            </IconButton>
+          )}
+        </CardActions>
+      </Card>
+    </>
   )
 }
 

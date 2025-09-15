@@ -7,6 +7,7 @@ import successNotification from '../../../../shared/ui/Notifications/sucessNotif
 import { addDeviceActions } from '../../model/slices/addDeviceSlice.ts'
 import { Box, Skeleton } from '@mui/material'
 import styles from '../../scss/styles.module.scss'
+import { devicesActions } from '../../model/slices/devicesSlice.ts'
 
 const Step3 = () => {
   const [loading, setLoading] = useState<boolean>(true)
@@ -45,6 +46,7 @@ const Step3 = () => {
           'Устройство успешно дабавлено! Подключитесь к вашей wi-fi сети',
         )
         dispatch(addDeviceActions.setModalClosed())
+        dispatch(devicesActions.startUpdateDevices())
       } else if (status === 'error') {
         errorNotification(message)
       }

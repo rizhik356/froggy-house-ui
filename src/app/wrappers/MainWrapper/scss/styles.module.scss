@@ -4,3 +4,11 @@
   padding: 1rem;
   position: relative;
 }
+
+@media (max-width: 768px) {
+  .layout_container.collapsed {
+    pointer-events: none;
+    filter: blur(8px);
+    user-select: none;
+  }
+}

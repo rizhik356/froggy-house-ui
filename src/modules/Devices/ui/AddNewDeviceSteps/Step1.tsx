@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
-import { getRooms } from '../../../../app/api/getRooms.ts'
-import { getDevicesTypes } from '../../model/api/getDevicesTypes.ts'
+import { useState } from 'react'
 import { errorNotification } from '../../../../shared/ui/Notifications'
 import { useDispatch } from 'react-redux'
 import { addDeviceActions } from '../../model/slices/addDeviceSlice.ts'
@@ -19,13 +17,12 @@ import type { FormValues } from '../../model/types/AddNewDeviceTypes.ts'
 import { useAppSelector } from '../../../../app/hooks/storeHooks.ts'
 import styles from '../../scss/styles.module.scss'
 import { postStep1Data } from '../../model/api/postStep1Data.ts'
+import { validationDeviceSchema } from '../../model/schemas/validationDeviceSchema.ts'
 
 const Step1 = () => {
   const dispatch = useDispatch()
   const [loading, setLoading] = useState<boolean>(false)
-  const { rooms, devicesTypes } = useAppSelector(
-    (state) => state.addDevice.servicesData,
-  )
+  const { rooms, devicesTypes } = useAppSelector((state) => state.service)
 
   const handleSubmit = (values: FormValues) => {
     setLoading(true)
@@ -44,15 +41,8 @@ const Step1 = () => {
     onSubmit: (values) => {
       handleSubmit(values)
     },
+    validationSchema: validationDeviceSchema,
   })
-
-  useEffect(() => {
-    Promise.all([getRooms(), getDevicesTypes()])
-      .then(([rooms, devicesTypes]) => {
-        dispatch(addDeviceActions.setServiceData({ rooms, devicesTypes }))
-      })
-      .catch((err) => errorNotification(err))
-  }, [])
 
   return (
     <>

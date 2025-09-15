@@ -1,25 +1,31 @@
-import type { DeviceData } from './DevicesTypes.ts'
+import type { DeviceData, NewOutputData } from './DevicesTypes.ts'
 
 export type Props = {
   onClick: () => void
 }
 
-export type ServiceItem = { value: number; label: string }
-
-export type ServiceData = Array<ServiceItem>
-
-export type ServicesData = { rooms: ServiceData; devicesTypes: ServiceData }
-
 export type AddDeviceState = {
-  servicesData: ServicesData
   deviceToken: string
   modalOpened: boolean
   step: number
 }
 
+export type PatchedData = {
+  patchedOutput: number | null
+  patchedRoomId: number | null
+  patchedName: string
+  patchedDeviceId: number | null
+  patchedId: number | null
+}
+
 export type DevicesState = {
   devicesUpdate: boolean
   devices: Array<DeviceData>
+  deviceModalOpened: boolean
+  deviceIdClicked: number | null
+  newOutputData: NewOutputData
+  patchedData: PatchedData
+  formOpened: boolean
 }
 
 export type FormValues = {
