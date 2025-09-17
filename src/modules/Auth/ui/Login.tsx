@@ -19,11 +19,14 @@ import { useDispatch } from 'react-redux'
 import { authActions } from '../model/store/authSlice.ts'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import { useNavigate } from 'react-router-dom'
+import { paths } from '../../../constants'
 
 const Login = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSubmit = (values: LoginFormValues) => {
     setLoading(true)
@@ -53,7 +56,12 @@ const Login = () => {
         <div className={styles.actions}>
           <Typography variant={'body2'}>Забыли пароль</Typography>
           <Typography variant={'body2'}>&nbsp;/&nbsp;</Typography>
-          <Typography variant={'body2'}>Регистрация</Typography>
+          <Typography
+            onClick={() => navigate(`${paths.AUTH.REGISTER}/${1}`)}
+            variant={'body2'}
+          >
+            Регистрация
+          </Typography>
         </div>
       </div>
       <Box

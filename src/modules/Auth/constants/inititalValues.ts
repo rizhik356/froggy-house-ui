@@ -8,6 +8,11 @@ const loginInitialValues: LoginFormValues = {
 const storeInitialValues: Store = {
   token: '',
   tokenData: null,
+  step: 1,
 }
 
-export { loginInitialValues, storeInitialValues }
+const signUp1StepInitialValues = {
+  login: '',
+}
+
+export { loginInitialValues, storeInitialValues, signUp1StepInitialValues }

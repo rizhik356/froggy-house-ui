@@ -2,7 +2,7 @@ const paths = {
   MAIN: '/',
   AUTH: {
     LOGIN: '/login',
-    REGISTER: '/register',
+    REGISTER: '/sign-up',
     CONFIRM_PASSWORD: '/confirm-password',
   },
   SCHEDULE: '/schedule',

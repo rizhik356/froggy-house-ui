@@ -14,6 +14,7 @@ export type TokenData = {
 export type Store = {
   token: TokenPayload['token']
   tokenData: TokenPayload['tokenData'] | null
+  step: number
 }
 
 export type TokenPayload = {

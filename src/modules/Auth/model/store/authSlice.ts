@@ -19,6 +19,9 @@ const auth = createSlice({
     setAccessToken: (state, action: PayloadAction<Tokens['access_token']>) => {
       state.token = action.payload
     },
+    setCurrentStep: (state, action: PayloadAction<number>) => {
+      state.step = action.payload
+    },
   },
 })
 

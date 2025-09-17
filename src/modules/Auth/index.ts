@@ -3,5 +3,13 @@ import { authTokenMiddleware } from './model/store/middlewares/authTokenMiddlewa
 import authReducer from './model/store/authSlice.ts'
 import type { Tokens } from './model/types/LoginTypes.ts'
 import { authActions } from './model/store/authSlice.ts'
+import SignUp from './ui/SignUp'
 
-export { Login, authTokenMiddleware, authReducer, type Tokens, authActions }
+export {
+  Login,
+  authTokenMiddleware,
+  authReducer,
+  type Tokens,
+  authActions,
+  SignUp,
+}
