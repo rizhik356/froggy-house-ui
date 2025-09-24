@@ -3,6 +3,7 @@ import type { FormValues, Step2FormValues } from '../model/types/SignUpTypes.ts'
 import type {
   PasswordResetStep1FormValues,
   PasswordResetStep2FormValues,
+  PasswordResetStep3FormValues,
 } from '../model/types/PasswordResetTypes.ts'
 
 const loginInitialValues: LoginFormValues = {
@@ -36,6 +37,11 @@ const passwordResetStep2InitialValues: PasswordResetStep2FormValues = {
   code: '',
 }
 
+const passwordResetStep3InitialValues: PasswordResetStep3FormValues = {
+  password: '',
+  confirmPassword: '',
+}
+
 export {
   loginInitialValues,
   storeInitialValues,
@@ -43,4 +49,5 @@ export {
   signUp2StepInitialValues,
   passwordResetStep1InitialValues,
   passwordResetStep2InitialValues,
+  passwordResetStep3InitialValues,
 }

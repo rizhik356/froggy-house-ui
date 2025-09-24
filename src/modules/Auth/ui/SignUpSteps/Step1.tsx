@@ -160,6 +160,7 @@ const Step1 = () => {
           onChange={form.handleChange}
           fullWidth
           label="Пароль"
+          type={showPassword ? 'text' : 'password'}
           error={form.touched.password && Boolean(form.errors.password)}
           helperText={form.touched.password && form.errors.password}
           onBlur={form.handleBlur}
@@ -192,6 +193,7 @@ const Step1 = () => {
           value={form.values.confirmPassword}
           name={'confirmPassword'}
           onChange={form.handleChange}
+          type={showConfirmPassword ? 'text' : 'password'}
           fullWidth
           label="Подтверждение пароля"
           error={
