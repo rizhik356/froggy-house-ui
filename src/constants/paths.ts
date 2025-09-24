@@ -4,6 +4,7 @@ const paths = {
     LOGIN: '/login',
     REGISTER: '/sign-up',
     CONFIRM_PASSWORD: '/confirm-password',
+    RESET_PASSWORD: '/reset-password',
   },
   SCHEDULE: '/schedule',
 }

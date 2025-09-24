@@ -15,6 +15,7 @@ export type Store = {
   token: TokenPayload['token']
   tokenData: TokenPayload['tokenData'] | null
   step: number
+  currentPasswordResetStep: number
 }
 
 export type TokenPayload = {

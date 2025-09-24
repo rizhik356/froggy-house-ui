@@ -4,6 +4,7 @@ import authReducer from './model/store/authSlice.ts'
 import type { Tokens } from './model/types/LoginTypes.ts'
 import { authActions } from './model/store/authSlice.ts'
 import SignUp from './ui/SignUp'
+import ResetPassword from './ui/ResetPassword'
 
 export {
   Login,
@@ -12,4 +13,5 @@ export {
   type Tokens,
   authActions,
   SignUp,
+  ResetPassword,
 }

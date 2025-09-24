@@ -22,6 +22,9 @@ const auth = createSlice({
     setCurrentStep: (state, action: PayloadAction<number>) => {
       state.step = action.payload
     },
+    setCurrentPasswordResetStep: (state, action: PayloadAction<number>) => {
+      state.currentPasswordResetStep = action.payload
+    },
   },
 })
 

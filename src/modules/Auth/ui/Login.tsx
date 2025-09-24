@@ -54,10 +54,15 @@ const Login = () => {
       <div className={styles.actions_container}>
         <Typography variant={'h2'}>Вход</Typography>
         <div className={styles.actions}>
-          <Typography variant={'body2'}>Забыли пароль</Typography>
+          <Typography
+            variant={'body2'}
+            onClick={() => navigate(`${paths.AUTH.RESET_PASSWORD}/1`)}
+          >
+            Забыли пароль
+          </Typography>
           <Typography variant={'body2'}>&nbsp;/&nbsp;</Typography>
           <Typography
-            onClick={() => navigate(`${paths.AUTH.REGISTER}/${1}`)}
+            onClick={() => navigate(`${paths.AUTH.REGISTER}/1`)}
             variant={'body2'}
           >
             Регистрация
