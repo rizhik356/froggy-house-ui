@@ -10,12 +10,26 @@
   width: 100%;
   overflow-y: auto;
   .main_container_inner {
-
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(8, minmax(0, 1fr));
     gap: 1rem;
+
+    @media (max-width: 992px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width: 480px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
     .card {
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+      }
+
       .card_header {
         overflow: hidden;
         :global(.MuiCardHeader-content) {
@@ -38,12 +52,21 @@
       .card_actions {
         justify-content: center;
         padding: 0 8px 8px 8px;
+
+        .on {
+          background: #2196F3;
+        }
       }
       :global(.MuiCardMedia-img) {
         max-height: 120px;
       }
       &.disable {
         background-color: #c8c8c8;
+
+        .img {
+          filter: grayscale(100%)
+        }
+
         .card_actions {
           pointer-events: none;
         }
@@ -133,5 +156,4 @@
   margin: auto;
   padding: 0 0 1rem 0;
 }
-
 

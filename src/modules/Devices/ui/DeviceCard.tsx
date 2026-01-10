@@ -64,11 +64,18 @@ const DeviceCard = ({
           title={name}
           subheader={roomName}
         />
-        <CardMedia component="img" image={makeStaticPath(image)} alt={name} />
+        <CardMedia
+          component="img"
+          image={makeStaticPath(image)}
+          alt={name}
+          className={styles.img}
+          style={{ maxHeight: 120 }}
+        />
         <CardActions disableSpacing className={styles.card_actions}>
           {deviceType !== 'SWITCH_HUB' && (
             <IconButton
               size={'large'}
+              className={deviceParams.power ? styles.on : styles.off}
               color={deviceParams.power ? 'primary' : 'default'}
               loading={loading}
               onClick={handleClickBtn}
