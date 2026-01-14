@@ -7,6 +7,8 @@ const paths = {
     RESET_PASSWORD: '/reset-password',
   },
   SCHEDULE: '/schedule',
+  REPORTS: '/reports',
+  FAMILY: '/family',
 }
 
 export { paths }

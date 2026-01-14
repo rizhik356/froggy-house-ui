@@ -52,10 +52,7 @@ const makeAxiosInstance = () => {
           } catch (err) {
             const error = err as AxiosError
 
-            if (
-              error?.response?.status === 400 &&
-              !refreshValues.isRefreshing
-            ) {
+            if (error?.response?.status === 400 && refreshValues.isRefreshing) {
               refreshValues.isRefreshing = false
               logOut()
             } else {

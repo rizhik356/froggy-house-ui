@@ -37,6 +37,13 @@ const API_URLS = {
     },
   },
 
+  FAMILY: {
+    main: '/family',
+    get GET_FAMILIES() {
+      return `${this.main}`
+    },
+  },
+
   ROOMS: {
     main: '/rooms',
     get GET_ROOMS() {

@@ -1,13 +1,16 @@
 import { paths } from '../../../../constants'
 import MainWrapper from '../../../wrappers/MainWrapper/ui/MainWrapper.tsx'
 import { Devices } from '../../../../modules/Devices'
+import { Family } from '../../../../modules/Family'
 
 const MainGroup = () => {
   return [
     {
       element: <MainWrapper />,
-      path: paths.MAIN,
-      children: [{ element: <Devices />, index: true }],
+      children: [
+        { path: paths.MAIN, element: <Devices /> },
+        { path: paths.FAMILY, element: <Family /> },
+      ],
     },
   ]
 }
