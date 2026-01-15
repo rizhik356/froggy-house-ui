@@ -19,7 +19,7 @@ const menuItems: MenuItems = [
     listItemClass: styles.list_item,
     itemText: 'Семья',
     itemIcon: <FamilyRestroomIcon />,
-    id: paths.FAMILY,
+    id: paths.FAMILY.MAIN,
   },
   {
     listItemDisablePadding: true,

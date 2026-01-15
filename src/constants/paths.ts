@@ -8,7 +8,12 @@ const paths = {
   },
   SCHEDULE: '/schedule',
   REPORTS: '/reports',
-  FAMILY: '/family',
+  FAMILY: {
+    MAIN: '/family',
+    get INVITE() {
+      return this.MAIN + '/invite'
+    },
+  },
 }
 
 export { paths }

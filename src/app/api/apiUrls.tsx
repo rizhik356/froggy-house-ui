@@ -42,6 +42,12 @@ const API_URLS = {
     get GET_FAMILIES() {
       return `${this.main}`
     },
+    get INVITE_USER() {
+      return `${this.main}/invite`
+    },
+    get ACCESS_INVITE() {
+      return `${this.main}/access-invite`
+    },
   },
 
   ROOMS: {
