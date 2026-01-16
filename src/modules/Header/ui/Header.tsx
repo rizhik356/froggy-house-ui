@@ -9,6 +9,7 @@ import {
   MenuItem,
   ListItemText,
   ListItemIcon,
+  Divider,
 } from '@mui/material'
 
 import MenuIcon from '@mui/icons-material/Menu'
@@ -22,11 +23,13 @@ import { useState } from 'react'
 import SettingsIcon from '@mui/icons-material/Settings'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { logOut } from '../../../shared/utils/logOut.ts'
+import { useAppSelector } from '../../../app/hooks/storeHooks.ts'
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { tokenData } = useAppSelector((state) => state.auth)
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
@@ -87,6 +90,15 @@ const Header = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
+            <MenuItem>
+              <ListItemIcon>
+                <Avatar style={{ width: '1.5rem', height: '1.5rem' }} />
+              </ListItemIcon>
+              <Typography variant="inherit" noWrap>
+                {tokenData?.login}
+              </Typography>
+            </MenuItem>
+            <Divider />
             <MenuItem onClick={handleClose}>
               <ListItemIcon>
                 <SettingsIcon fontSize="small" />

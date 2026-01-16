@@ -27,6 +27,7 @@ import type { FormValues } from '../model/types/AddMemberTypes.ts'
 import { inviteUser } from '../model/api/inviteUser.ts'
 import successNotification from '../../../shared/ui/Notifications/sucessNotification.ts'
 import { errorNotification } from '../../../shared/ui/Notifications'
+import { validationAddMemberSchema } from '../model/schemas/validationAddMemberSchema.ts'
 
 const AddNewFamilyMember = () => {
   const dispatch = useDispatch()
@@ -43,6 +44,7 @@ const AddNewFamilyMember = () => {
     onSubmit: (values) => {
       handleSubmit(values)
     },
+    validationSchema: validationAddMemberSchema,
   })
 
   const handleFabClick = () => {
@@ -115,6 +117,9 @@ const AddNewFamilyMember = () => {
                   fullWidth
                   label={'Email пользователя'}
                   variant={'outlined'}
+                  error={form.touched.email && Boolean(form.errors.email)}
+                  helperText={form.touched.email && form.errors.email}
+                  onBlur={form.handleBlur}
                 />
               </FormControl>
               <FormControl fullWidth>

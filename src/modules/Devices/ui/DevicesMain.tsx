@@ -16,6 +16,10 @@ const DevicesMain = () => {
   const { devicesUpdate, devices } = useAppSelector((state) => state.devices)
 
   useEffect(() => {
+    dispatch(devicesActions.startUpdateDevices())
+  }, [])
+
+  useEffect(() => {
     if (devicesUpdate) {
       getDevices()
         .then((data) => {

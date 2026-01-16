@@ -10,6 +10,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  FormHelperText,
 } from '@mui/material'
 import { useFormik } from 'formik'
 import { addNewDeviceStep1InitialValues } from '../../constants/initialValues.ts'
@@ -44,6 +45,12 @@ const Step1 = () => {
     validationSchema: validationDeviceSchema,
   })
 
+  const getFieldError = (fieldName: keyof FormValues) => {
+    return form.touched[fieldName] && form.errors[fieldName]
+      ? form.errors[fieldName]
+      : ''
+  }
+
   return (
     <>
       <Box
@@ -51,13 +58,14 @@ const Step1 = () => {
         className={styles.form}
         onSubmit={form.handleSubmit}
       >
-        <FormControl fullWidth>
+        <FormControl fullWidth error={!!getFieldError('roomId')}>
           <InputLabel id={'roomId'}>Комната</InputLabel>
           <Select
             labelId={'roomId'}
             name={'roomId'}
             value={form.values.roomId || ''}
             onChange={form.handleChange}
+            onBlur={form.handleBlur}
             label={'Комната'}
             fullWidth
           >
@@ -69,6 +77,9 @@ const Step1 = () => {
               )
             })}
           </Select>
+          {getFieldError('roomId') && (
+            <FormHelperText error>{getFieldError('roomId')}</FormHelperText>
+          )}
         </FormControl>
 
         <FormControl fullWidth>
@@ -103,6 +114,7 @@ const Step1 = () => {
           type={'submit'}
           variant={'contained'}
           loading={loading}
+          style={{ width: '100%' }}
         >
           Далее
         </Button>
