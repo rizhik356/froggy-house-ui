@@ -15,4 +15,5 @@ export const familySliceInitialValues: FamilyState = {
 export const deleteMemberSliceInitialValue: DeleteMemberState = {
   confirmModalOpened: false,
   deleteLoading: false,
+  deleteMemberInfo: null,
 }
