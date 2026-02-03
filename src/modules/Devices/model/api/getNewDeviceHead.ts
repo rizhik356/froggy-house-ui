@@ -1,8 +1,9 @@
-import axios from 'axios'
+
 
 const getNewDeviceHead = async () => {
-  return await axios.head(import.meta.env.VITE_NEW_DEVICE_URL, {
-    timeout: 3000,
+  return await fetch(import.meta.env.VITE_NEW_DEVICE_URL, {
+    method: 'HEAD',
+    mode: "no-cors"
   })
 }
 
