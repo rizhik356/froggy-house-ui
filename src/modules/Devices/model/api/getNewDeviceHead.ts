@@ -1,16 +1,39 @@
-const getNewDeviceHead = (): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    try {
-      const success = navigator.sendBeacon(import.meta.env.VITE_NEW_DEVICE_URL)
+const getNewDeviceHead = (): Promise<boolean> => {
+  return new Promise((resolve) => {
+    // Создаем скрытый iframe
+    const iframe = document.createElement('iframe')
+    iframe.style.display = 'none'
+    let resolved = false
 
-      if (success) {
-        resolve() // Успешно отправлено
-      } else {
-        reject(new Error('sendBeacon failed')) // Не удалось отправить
+    iframe.onload = () => {
+      if (!resolved) {
+        resolved = true
+        document.body.removeChild(iframe)
+        resolve(true)
       }
-    } catch (error) {
-      reject(error) // Ошибка при вызове
     }
+
+    iframe.onerror = () => {
+      if (!resolved) {
+        resolved = true
+        document.body.removeChild(iframe)
+        resolve(false)
+      }
+    }
+
+    // Открываем URL с ping параметром
+    iframe.src = `${import.meta.env.VITE_NEW_DEVICE_URL}?ping=${Date.now()}`
+    document.body.appendChild(iframe)
+
+    setTimeout(() => {
+      if (!resolved) {
+        resolved = true
+        if (iframe.parentNode) {
+          document.body.removeChild(iframe)
+        }
+        resolve(false)
+      }
+    }, 3000)
   })
 }
 
