@@ -1,4 +1,4 @@
-import axios, from 'axios'
+import axios from 'axios'
 
 const getNewDeviceHead = async () => {
   // 1. Сначала OPTIONS preflight
