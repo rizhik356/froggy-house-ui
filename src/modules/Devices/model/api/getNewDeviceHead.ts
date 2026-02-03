@@ -1,39 +1,11 @@
-const getNewDeviceHead = (): Promise<boolean> => {
-  return new Promise((resolve) => {
-    // Создаем скрытый iframe
-    const iframe = document.createElement('iframe')
-    iframe.style.display = 'none'
-    let resolved = false
+import axios from 'axios'
 
-    iframe.onload = () => {
-      if (!resolved) {
-        resolved = true
-        document.body.removeChild(iframe)
-        resolve(true)
-      }
-    }
-
-    iframe.onerror = () => {
-      if (!resolved) {
-        resolved = true
-        document.body.removeChild(iframe)
-        resolve(false)
-      }
-    }
-
-    // Открываем URL с ping параметром
-    iframe.src = `${import.meta.env.VITE_NEW_DEVICE_URL}?ping=${Date.now()}`
-    document.body.appendChild(iframe)
-
-    setTimeout(() => {
-      if (!resolved) {
-        resolved = true
-        if (iframe.parentNode) {
-          document.body.removeChild(iframe)
-        }
-        resolve(false)
-      }
-    }, 3000)
+const getNewDeviceHead = async () => {
+  return await axios.head(import.meta.env.VITE_NEW_DEVICE_URL, {
+    timeout: 3000,
+    headers: {
+      'Access-Control-Request-Private-Network': 'true',
+    },
   })
 }
 
