@@ -9,6 +9,7 @@ const getNewDeviceHead = async () => {
         Origin: window.location.origin,
         'Access-Control-Request-Method': 'GET',
         'Access-Control-Request-Headers': 'Content-Type',
+        'Access-Control-Request-Private-Network': 'true',
       },
     })
   } catch {
