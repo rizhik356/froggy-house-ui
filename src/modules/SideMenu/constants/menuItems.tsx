@@ -1,5 +1,5 @@
 import DevicesOther from '@mui/icons-material/Inbox'
-import AlarmOutlinedIcon from '@mui/icons-material/AlarmOutlined'
+//import AlarmOutlinedIcon from '@mui/icons-material/AlarmOutlined'
 import AssessmentIcon from '@mui/icons-material/Assessment'
 import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom'
 import styles from '../scss/styles.module.scss'
@@ -21,13 +21,14 @@ const menuItems: MenuItems = [
     itemIcon: <FamilyRestroomIcon />,
     id: paths.FAMILY.MAIN,
   },
+  /*
   {
     listItemDisablePadding: true,
     listItemClass: styles.list_item,
     itemText: 'Сценарии',
     itemIcon: <AlarmOutlinedIcon />,
     id: paths.SCHEDULE,
-  },
+  },*/
   {
     listItemDisablePadding: true,
     listItemClass: styles.list_item,
