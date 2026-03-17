@@ -20,7 +20,8 @@ interface LogEntry {
   action: string
   createdAt: string
   userId: number
-  roomId: number | null
+  roomName: string | null
+  deviceName: string | null
 }
 
 const ReportsMain = () => {
@@ -58,7 +59,7 @@ const ReportsMain = () => {
   }
 
   return (
-    <Box sx={{ p: 2 }}>
+    <Box>
       <Typography variant="h5" gutterBottom>
         Журнал событий
       </Typography>
@@ -71,7 +72,7 @@ const ReportsMain = () => {
               <TableCell>Действие</TableCell>
               <TableCell>Дата</TableCell>
               <TableCell>Комната</TableCell>
-              <TableCell>Пользователь</TableCell>
+              <TableCell>Устройство</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -84,10 +85,8 @@ const ReportsMain = () => {
                   <TableCell>
                     {new Date(log.createdAt).toLocaleString('ru-RU')}
                   </TableCell>
-                  <TableCell>
-                    {log.roomId ? `Комната ${log.roomId}` : 'Нет комнаты'}
-                  </TableCell>
-                  <TableCell>ID: {log.userId}</TableCell>
+                  <TableCell>{log.roomName || 'Нет комнаты'}</TableCell>
+                  <TableCell>{log.deviceName}</TableCell>
                 </TableRow>
               ))}
           </TableBody>
