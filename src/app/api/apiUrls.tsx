@@ -78,6 +78,12 @@ const API_URLS = {
       return `${this.main}`
     },
   },
+  DEVICES_LOGS: {
+    main: '/devices-logs',
+    get GET_DEVICES_LOGS() {
+      return `${this.main}`
+    }
+  }
 }
 
 export { API_URLS }

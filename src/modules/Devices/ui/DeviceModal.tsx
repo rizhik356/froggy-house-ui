@@ -23,6 +23,12 @@ const DeviceModal = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    if (!formOpened) {
+      setPatched(false)
+    }
+  }, [formOpened])
+
+  useEffect(() => {
     if (deviceIdClicked) {
       const currentDevice = devices.find(({ id }) => id === deviceIdClicked)
       const children = currentDevice?.children || []
